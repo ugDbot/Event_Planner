@@ -1,0 +1,33 @@
+{% extends 'events/base.html' %} <!-- This extends the data to the base.html -->
+
+
+{% block content %} <!-- This is used to get all data from here and input it in the base.html file for the design -->
+{% if user.is_authenticated %} <!-- checks if the user is logged in -->
+    <center>
+        <font size="+2">
+    <strong>Hello {{ user }}!<!-- User is the variable holding the person logged in, We can find this in
+    members/views.py in the login_user function --></strong>
+            </font>
+    <!-- we use "br/" to go to the next line on the browser -->
+    <br><br/>
+
+
+    {{cal|safe}} <br/>
+    <!-- "|safe" is used to render the html safe so it's not reading in html format -->
+
+    Copyright (c) {{ year_now }}
+    </center>
+{% else %} <!-- if not? -->
+<center>
+    <font size="+2">
+        <strong>Welcome to MyEvents Planner <br/>
+            It is {{ month }} {{ year }}</strong>
+        <br/><br/>
+    </font>
+    You can view available Events and Venues or log in to do more...
+</center>
+{% endif %}
+    <!-- we use the "center" to center text, we always put "center" at the beginning of the text and "/center" at the ending
+    of the text -->
+{% endblock %}
+

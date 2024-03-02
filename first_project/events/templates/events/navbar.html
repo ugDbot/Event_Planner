@@ -1,0 +1,79 @@
+ <!-- When modifying, We find the widget we are looking for or add it, We rename it or create it>
+ In the href here we put the link: {"% url '' %"} with the dictionary bracket wrapping it
+ the link name can be gotten from the urls.py file>
+ which means we want the navbar to show what we have modified and the link to redirect to the specific webpage -->
+
+ <!-- Navbar settings -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{%url 'home' %}">MyEvents Planner</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <!-- Home button -->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+        </li>
+
+        <!-- First dropdown(Events) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Events
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'list events' %}">View Events</a></li>
+            {% if user.is_authenticated %} <!-- Check if user is logged in -->
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'add-event' %}">Add Event</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'my-events' %}">My Events</a></li>
+            {% endif %}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'search-events' %}">Search Events</a></li>
+          </ul>
+        </li>
+
+        <!-- Second dropdown(Venues) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Venues
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'list-venue' %}">View Venues</a></li>
+            {% if user.is_authenticated %} <!-- Check if user is logged in -->
+            <li><a class="dropdown-item" href="{% url 'add-venue' %}">Add Venue</a></li>
+            {% endif %}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'venue-text' %}">Download list of available venues</a></li>
+          </ul>
+        </li>
+
+        <!-- Login/Logout/Register button -->
+        {% if user.is_authenticated %} <!-- Check if user is logged in and a member then change buttons accordingly -->
+          <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %} <!-- if the user is logged out show login and register buttons -->
+          <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'register' %}">Register</a>
+        </li>
+        {% endif %}
+
+      </ul>
+
+      <!-- Search button and search entry widget -->
+      <form class="d-flex" method="POST" action="{% url 'search' %}">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searcher">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </form>
+
+    </div>
+  </div>
+</nav>

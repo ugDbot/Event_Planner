@@ -1,0 +1,21 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+
+<font size="+2">
+    <strong>
+        My Events
+    </strong>
+</font>
+<br/><br/>
+
+<strong><p>The events your attending are...</p></strong>
+
+{% for events in list_events %}
+<li>{{ events }} at {{ events.venue }}</li><br/>
+{% endfor %}
+
+
+
+{% endblock %}

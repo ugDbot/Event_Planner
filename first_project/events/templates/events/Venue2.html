@@ -1,0 +1,35 @@
+{% extends 'events/base.html' %} <!-- This extends the data to the base.html -->
+
+
+{% block content %} <!-- This is used to get all data from here and input it in the base.html file for the design -->
+
+        <font size="+2">
+    <strong>Venue:</strong>
+            </font>
+    <br/><br/>
+
+            <div class="card">
+  <div class="card-header">
+    {{ showing_venue }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ event.venue }}</h5>
+    <p class="card-text">
+      <li>Address:- {{ showing_venue.address }}<br/></li>
+      <li>Zip-Code:- {{ showing_venue.zip_code }}<br/></li>
+      <li>Phone Number:- {{ showing_venue.phone }}<br/></li>
+      <li>Web Address:- <a href="{{ showing_venue.web }}">{{ showing_venue.web }}</a><br/></li>
+      <li>Email Address:- {{ showing_venue.email_address }}<br/></li>
+      <li>Creator:- {{ venue_owner }}<br/></li>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

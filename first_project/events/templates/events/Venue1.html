@@ -1,0 +1,27 @@
+{% extends 'events/base.html' %} <!-- This extends the data to the base.html -->
+
+
+{% block content %} <!-- This is used to get all data from here and input it in the base.html file for the design -->
+
+        <font size="+2">
+    <strong>Available Venues</strong>
+            </font>
+    <br/><br/>
+
+    {% for venue in venue_list %} <!-- For venue in the available venus, list them out and add an update button to it -->
+<li>{{ venue }}: <a href="{% url 'show-venue' venue.id %}">{{ venue }}</a></li><br/>
+{% if user.is_authenticated %} <!-- Checks if user is logged in -->
+{% if user.id == venue.owner %} <!-- Checks if it's the creator of the venue -->
+<a href="{% url 'update-venue' venue.id %}"  class="btn btn-outline-secondary btm-sm">Update</a>   <a href="{% url 'delete-venue' venue.id %}"  class="btn btn-outline-danger btm-sm">Delete</a><br/><br/>
+{% else %} <!-- if it's not the creator -->
+<a href="{% url 'update-venue' venue.id %}"  class="btn btn-outline-secondary btm-sm">Update</a>
+{% endif %}
+{% else %} <!-- If user isn't logged in -->
+<a href="{% url 'update-venue' venue.id %}"  class="btn btn-outline-secondary btm-sm">Update</a>
+{% endif %}
+
+    {% endfor %}
+
+
+{% endblock %}
+

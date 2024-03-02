@@ -1,0 +1,41 @@
+{% extends 'events/base.html' %} <!-- This extends the data to the base.html -->
+
+
+{% block content %} <!-- This is used to get all data from here and input it in the base.html file for the design -->
+
+{% if user.is_authenticated %} <!-- Checks if the user is logged in -->
+
+    <center>
+        <font size="+2">
+    <strong>Add Venue to Database</strong>
+            </font>
+        <br/><br/>
+        {% if submitted %} <!-- Checks if submitted is true -->
+            Your Venue was submitted successfully!
+
+        {% else %}
+            <!-- Line of Codes needed in a form web page -->
+            <form action="" method="POST">
+                {% csrf_token %%} <!-- For security to prevent hackers -->
+
+                {{ form.as_p }}
+
+                <input type="submit" value="Submit" class="btn btn-outline-success"> <!-- Create a submit bootstrap button -->
+        </form>
+        {% endif %}
+
+
+    </center>
+
+{% else %} <!-- If the user isn't logged in -->
+<font size="+2">
+    <strong>You have to Log in to view this page</strong>
+</font>
+<br/><br/>
+
+<a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a> <!-- Login button -->
+{% endif %}
+
+
+{% endblock %}
+

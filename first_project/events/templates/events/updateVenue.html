@@ -1,0 +1,36 @@
+{% extends 'events/base.html' %} <!-- This extends the data to the base.html -->
+
+
+{% block content %} <!-- This is used to get all data from here and input it in the base.html file for the design -->
+
+{% if user.is_authenticated %} <!-- Checks if the user is logged in -->
+{% if user.id == venue_user_id %} <!-- Checks if it's the creator of the venue -->
+        <font size="+2">
+    <strong>Update Venue</strong>
+            </font>
+        <br/><br/>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br/>
+        <input type="submit" value="Update" class="btn btn-outline-success">
+    </form>
+{% else %} <!-- If it's not the creator -->
+<font size="+2">
+    <strong>Access denied!</strong>
+</font>
+<p>You did not create this venue so you cannot update it</p>
+{% endif %}
+
+{% else %} <!-- If the user isn't logged in -->
+<font size="+2">
+    <strong>You have to Log in to view this page</strong>
+</font>
+<br/><br/>
+
+<a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a> <!-- Login button -->
+{% endif %}
+
+
+{% endblock %}

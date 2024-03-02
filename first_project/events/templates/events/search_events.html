@@ -1,0 +1,81 @@
+{% extends 'events/base.html' %} <!-- This extends the data to the base.html -->
+
+
+{% block content %} <!-- This is used to get all data from here and input it in the base.html file for the design -->
+
+            <div class="card">
+  <div class="card-header">
+        <font size="+2">
+    <strong>Search Events...</strong>
+            </font>
+  </div>
+                  <div class="card-body">
+                           <!-- Search button and search entry widget -->
+      <form method="POST" action="{% url 'search-events' %}">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searcher">
+              <br/>
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </form>
+  </div>
+                <div></div>
+                </div><br/><br/>
+
+
+
+ {% if searched %}
+   <font size="+2">
+    <strong>Results with {{ searched }}</strong>
+            </font><br/><br/>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+     {% for event in results2 %} <!-- for every result in the results2 variable in our context dictionary in our
+                                        search function in views.py, print the results -->
+             <ul>
+            <div class="card">
+  <div class="card-header">
+    {{ event }}
+      <br/><br/>
+      {% if user.is_authenticated %}<!-- Checks if the user is logged in -->
+      {% if user.get_username == event.manager %} <!-- Checks if the user is the manager of an event -->
+      <a href="{% url 'update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>   <a href="{% url 'delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
+      {% else %} <!-- if the user isn't the manager -->
+      <a href="{% url 'update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+      {% endif %}
+      {% else %} <!-- If the user isn' logged in -->
+      <a href="{% url 'update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+      {% endif %}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ event.venue }}</h5>
+    <p class="card-text">            <ul><li>Date: {{ event.event_date }}</li>
+            <li>Venue Website: {{ event.venue.web }}</li>
+            <li>Manager: {{ event.manager }}</li>
+            <li>Description: {{ event.description }}</li>
+            <li>Attenders: </li>
+                {% for attender in event.attendees.all %}
+                <ul>
+            <li>{{ attender }}</li>
+                </ul>
+                {% endfor %}
+                                    </ul>
+        </ul>
+        {% endfor %} <!-- Ends the for loop --></p>
+  </div>
+</div>
+
+
+
+{% endblock %}
+

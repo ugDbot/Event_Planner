@@ -1,0 +1,33 @@
+{% extends 'events/base.html' %} <!-- This extends the data to the base.html -->
+
+
+{% block content %} <!-- This is used to get all data from here and input it in the base.html file for the design -->
+    <center>
+        {% if searched %} <!-- If search is true from the search function in views.py show what the person search for -->
+        <font size="+2">
+    <strong>Results with {{ searched }}<br/></strong>
+            </font>
+        {% for result in results1 %} <!-- for every result in the results1 variable in our context dictionary in our
+                                        search function in views.py, print the results -->
+            Venue: {{ result }}<br/>
+        {% endfor %}
+
+        {% for result in results2 %} <!-- for every result in the results2 variable in our context dictionary in our
+                                        search function in views.py, print the results -->
+        Event: {{ result }}<br/>
+        {% endfor %}
+
+        {% else %} <!-- If it's not true -->
+          <font size="+2">
+    <strong>You forgot to search for a venue</strong>
+            </font>
+
+        {% endif %}
+
+    <br><br/>
+        </center>
+
+
+
+{% endblock %}
+

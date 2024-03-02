@@ -1,0 +1,48 @@
+{% extends 'events/base.html' %} <!-- This extends the data to the base.html -->
+
+
+{% block content %} <!-- This is used to get all data from here and input it in the base.html file for the design -->
+
+        <font size="+10">
+    <strong>Events</strong> <br/>
+            </font>
+
+
+        <!-- A loop to correctly display the data in the database -->
+        {% for event in event_list %}
+        <ul>
+            <div class="card">
+  <div class="card-header">
+    {{ event }}
+      <br/><br/>
+      {% if user.is_authenticated %}<!-- Checks if the user is logged in -->
+      {% if user.get_username == event.manager %} <!-- Checks if the user is the manager of an event -->
+      <a href="{% url 'update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>   <a href="{% url 'delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
+      {% else %} <!-- if the user isn't the manager -->
+      <a href="{% url 'update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+      {% endif %}
+      {% else %} <!-- If the user isn' logged in -->
+      <a href="{% url 'update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+      {% endif %}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ event.venue }}</h5>
+    <p class="card-text">            <ul><li>Date: {{ event.event_date }}</li>
+            <li>Venue Website: {{ event.venue.web }}</li>
+            <li>Manager: {{ event.manager }}</li>
+            <li>Description: {{ event.description }}</li>
+            <li>Attenders: </li>
+                {% for attender in event.attendees.all %}
+                <ul>
+            <li>{{ attender }}</li>
+                </ul>
+                {% endfor %}
+                                    </ul>
+        </ul>
+        {% endfor %} <!-- Ends the for loop --></p>
+  </div>
+</div>
+
+
+{% endblock %}
+

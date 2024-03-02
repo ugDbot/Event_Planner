@@ -1,0 +1,28 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+{% if form.errors %} <!-- If there were errors while filling the form print error message -->
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>There was an error with your form</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+<br/><br/>
+{% endif %}
+
+<font size="+2">
+      <strong>Registration</strong>
+</font>
+<br/><br/>
+
+<form action="{% url 'register' %}" method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }} <!-- show django generated register form which was created in the members/views.py file -->
+    <br/><br/>
+    <input type="submit" value="Sign Up" class="btn btn-outline-success">
+</form>
+
+
+{% endblock %}
